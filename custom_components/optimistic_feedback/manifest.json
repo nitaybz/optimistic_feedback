@@ -5,6 +5,7 @@
   "config_flow": true,
   "documentation": "https://github.com/nitaybz/optimistic_feedback#readme",
   "iot_class": "local_push",
+  "issue_tracker": "https://github.com/nitaybz/optimistic_feedback/issues",
   "loggers": ["custom_components.optimistic_feedback"],
   "requirements": [],
   "version": "1.0.0"
