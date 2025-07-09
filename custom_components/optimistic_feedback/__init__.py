@@ -11,9 +11,12 @@ import logging
 from datetime import datetime, timedelta
 from typing import Any
 
+import voluptuous as vol
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ENTITY_ID
 from homeassistant.core import Event, HomeAssistant, callback
+import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.typing import StateType
 
@@ -41,6 +44,8 @@ _LOGGER = logging.getLogger(__name__)
 
 # No platforms (sensors, switches, etc.) – this integration is event-only.
 PLATFORMS: list[str] = []
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 
 # ---------------------------------------------------------------------------
