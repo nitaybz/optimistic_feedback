@@ -4,9 +4,11 @@
 
 > No more waiting for slow devices – get **instant visual feedback** the moment you tap any control, with automatic self-correction if the command fails.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/nitaybz/optimistic_feedback)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com/nitaybz/optimistic_feedback)
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=nitaybz&repository=optimistic_feedback&category=integration)
 
 ## What does it do?
 
