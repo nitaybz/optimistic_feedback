@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Optimistisches Feedback",
+        "description": "Sofortige UI-Updates bevor das Gerät antwortet. Konfigurieren Sie, welche Domänen und Entitäten einbezogen werden sollen.",
+        "data": {
+          "domains": "Zu einschließende Entitäts-Domänen",
+          "include_mode": "Einschlussmodus (EIN = nur ausgewählte Entitäten, AUS = ausgewählte Entitäten ausschließen)",
+          "selected_entities": "Spezifische Entitäten auswählen",
+          "debounce_time": "Entprellzeit (in Millisekunden)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Nur eine Instanz von Optimistisches Feedback ist erlaubt."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Optimistisches Feedback konfigurieren",
+        "description": "Domänen und Entitätsauswahl für optimistisches Feedback anpassen.",
+        "data": {
+          "domains": "Zu einschließende Entitäts-Domänen",
+          "include_mode": "Einschlussmodus (EIN = nur ausgewählte Entitäten, AUS = ausgewählte Entitäten ausschließen)",
+          "selected_entities": "Spezifische Entitäten auswählen",
+          "debounce_time": "Entprellzeit (in Millisekunden)"
+        }
+      }
+    }
+  }
+}

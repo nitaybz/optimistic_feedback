@@ -1,0 +1,43 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Optimistic Feedback",
+        "description": "Instant UI updates before the device replies. Configure which domains and entities to include.",
+        "data": {
+          "domains": "Entity domains to include",
+          "include_mode": "Entity filtering mode",
+          "selected_entities": "Select entities",
+          "debounce_time": "Debounce time (prevents rapid duplicate updates)"
+        },
+        "data_description": {
+          "include_mode": "ON = Only selected entities get optimistic feedback\nOFF = All domain entities except selected ones get optimistic feedback",
+          "selected_entities": "Choose specific entities to include or exclude based on the mode above",
+          "debounce_time": "Minimum time between optimistic updates for the same entity (50-2000ms)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Only one instance of Optimistic Feedback is allowed."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure Optimistic Feedback",
+        "description": "{mode_description}\n\nAdjust settings below:",
+        "data": {
+          "domains": "Entity domains to include",
+          "include_mode": "Entity filtering mode",
+          "selected_entities": "Entities to {mode_action}",
+          "debounce_time": "Debounce time"
+        },
+        "data_description": {
+          "include_mode": "ON = Include mode (only selected entities)\nOFF = Exclude mode (all except selected entities)",
+          "selected_entities": "Choose entities to {mode_action} for optimistic feedback",
+          "debounce_time": "Minimum time between updates for the same entity (50-2000ms)"
+        }
+      }
+    }
+  }
+}

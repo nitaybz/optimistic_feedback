@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer "toggle" outline -->
+    <rect x="2" y="7" width="20" height="10" rx="5"/>
+    <!-- Optimistic ⚡ bolt -->
+    <path d="M13 6 L9 12 h3 l-2 6 6-6 h-3 l2-6 Z"/>
+    <!-- Debounce arcs -->
+    <path d="M5.5 12.5a4.5 4.5 0 0 1 0-1"/>
+    <path d="M18.5 11.5a4.5 4.5 0 0 1 0 1"/>
+  </g>
+</svg>

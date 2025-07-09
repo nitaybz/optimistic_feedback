@@ -1,0 +1,11 @@
+{
+  "domain": "optimistic_feedback",
+  "name": "Optimistic Feedback",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://github.com/nitaybz/optimistic_feedback#readme",
+  "requirements": [],
+  "codeowners": ["@nitaybz"],
+  "iot_class": "local_push",
+  "loggers": ["custom_components.optimistic_feedback"]
+}

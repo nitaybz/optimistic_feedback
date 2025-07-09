@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Feedback Otimista",
+        "description": "Atualizações instantâneas da interface antes que o dispositivo responda. Configure quais domínios e entidades incluir.",
+        "data": {
+          "domains": "Domínios de entidades para incluir",
+          "include_mode": "Modo de inclusão (LIGADO = apenas entidades selecionadas, DESLIGADO = excluir entidades selecionadas)",
+          "selected_entities": "Selecionar entidades específicas",
+          "debounce_time": "Tempo de debounce (em milissegundos)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Apenas uma instância de Feedback Otimista é permitida."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configurar Feedback Otimista",
+        "description": "Ajustar domínios e seleção de entidades para feedback otimista.",
+        "data": {
+          "domains": "Domínios de entidades para incluir",
+          "include_mode": "Modo de inclusão (LIGADO = apenas entidades selecionadas, DESLIGADO = excluir entidades selecionadas)",
+          "selected_entities": "Selecionar entidades específicas",
+          "debounce_time": "Tempo de debounce (em milissegundos)"
+        }
+      }
+    }
+  }
+}

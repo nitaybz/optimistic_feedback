@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Retour Optimiste",
+        "description": "Mises à jour instantanées de l'interface avant que l'appareil ne réponde. Configurez quels domaines et entités inclure.",
+        "data": {
+          "domains": "Domaines d'entités à inclure",
+          "include_mode": "Mode d'inclusion (ON = seulement les entités sélectionnées, OFF = exclure les entités sélectionnées)",
+          "selected_entities": "Sélectionner des entités spécifiques",
+          "debounce_time": "Temps de suppression de rebond (en millisecondes)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Une seule instance de Retour Optimiste est autorisée."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configurer le Retour Optimiste",
+        "description": "Ajuster les domaines et la sélection d'entités pour le retour optimiste.",
+        "data": {
+          "domains": "Domaines d'entités à inclure",
+          "include_mode": "Mode d'inclusion (ON = seulement les entités sélectionnées, OFF = exclure les entités sélectionnées)",
+          "selected_entities": "Sélectionner des entités spécifiques",
+          "debounce_time": "Temps de suppression de rebond (en millisecondes)"
+        }
+      }
+    }
+  }
+}

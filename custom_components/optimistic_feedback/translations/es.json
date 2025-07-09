@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Retroalimentación Optimista",
+        "description": "Actualizaciones instantáneas de la interfaz antes de que el dispositivo responda. Configura qué dominios y entidades incluir.",
+        "data": {
+          "domains": "Dominios de entidades a incluir",
+          "include_mode": "Modo de inclusión (ON = solo entidades seleccionadas, OFF = excluir entidades seleccionadas)",
+          "selected_entities": "Seleccionar entidades específicas",
+          "debounce_time": "Tiempo de supresión de rebote (en milisegundos)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Solo se permite una instancia de Retroalimentación Optimista."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configurar Retroalimentación Optimista",
+        "description": "Ajustar dominios y selección de entidades para retroalimentación optimista.",
+        "data": {
+          "domains": "Dominios de entidades a incluir",
+          "include_mode": "Modo de inclusión (ON = solo entidades seleccionadas, OFF = excluir entidades seleccionadas)",
+          "selected_entities": "Seleccionar entidades específicas",
+          "debounce_time": "Tiempo de supresión de rebote (en milisegundos)"
+        }
+      }
+    }
+  }
+}

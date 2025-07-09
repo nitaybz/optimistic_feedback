@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Feedback Ottimista",
+        "description": "Aggiornamenti istantanei dell'interfaccia prima che il dispositivo risponda. Configura quali domini ed entità includere.",
+        "data": {
+          "domains": "Domini di entità da includere",
+          "include_mode": "Modalità di inclusione (ON = solo entità selezionate, OFF = escludi entità selezionate)",
+          "selected_entities": "Seleziona entità specifiche",
+          "debounce_time": "Tempo di debounce (in millisecondi)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "È consentita solo un'istanza di Feedback Ottimista."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configura Feedback Ottimista",
+        "description": "Regola domini e selezione di entità per il feedback ottimista.",
+        "data": {
+          "domains": "Domini di entità da includere",
+          "include_mode": "Modalità di inclusione (ON = solo entità selezionate, OFF = escludi entità selezionate)",
+          "selected_entities": "Seleziona entità specifiche",
+          "debounce_time": "Tempo di debounce (in millisecondi)"
+        }
+      }
+    }
+  }
+}
