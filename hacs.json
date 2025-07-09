@@ -1,9 +1,5 @@
 {
   "name": "Optimistic Feedback",
-  "content_in_root": false,
   "render_readme": true,
-  "domains": ["light", "switch", "cover", "fan", "climate", "media_player"],
-  "country": ["global"],
-  "homeassistant": "2023.5.0",
-  "iot_class": "Local Push"
+  "homeassistant": "2023.5.0"
 }
