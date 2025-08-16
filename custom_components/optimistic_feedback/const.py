@@ -6,7 +6,7 @@ CONF_SELECTED_ENTITIES = "selected_entities"
 CONF_DEBOUNCE_TIME = "debounce_time"
 
 DEFAULT_DOMAINS = ["light", "switch"]
-ALL_SUPPORTED_DOMAINS = ["light", "switch", "cover", "fan", "climate", "media_player"]
+ALL_SUPPORTED_DOMAINS = ["light", "switch", "cover", "fan", "climate", "media_player", "lock"]
 DEFAULT_DEBOUNCE_MS = 400
 EVENT_CALL_SERVICE = "call_service"
 
@@ -24,6 +24,9 @@ SERVICE_MAP = {
     "media_play": "playing",
     "media_pause": "paused",
     "media_stop": "idle",
+    # Lock services
+    "lock": "locked",
+    "unlock": "unlocked",
     # Generic toggle
     "toggle": "on",  # assume success, will be refined by domain logic
 }

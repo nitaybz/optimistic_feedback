@@ -4,7 +4,7 @@
 
 > No more waiting for slow devices – get **instant visual feedback** the moment you tap any control, with automatic self-correction if the command fails.
 
-[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com/nitaybz/optimistic_feedback)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/nitaybz/optimistic_feedback)
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -70,6 +70,7 @@ Choose which device types get optimistic feedback:
 - **fan** - Ceiling fans, exhaust fans
 - **climate** - Thermostats, AC units
 - **media_player** - TVs, speakers, streaming devices
+- **lock** - Smart locks, door locks
 
 ### Entity Filtering
 **Two modes available:**
@@ -103,6 +104,8 @@ Choose which device types get optimistic feedback:
 | `media_play` | `playing` | Media players |
 | `media_pause` | `paused` | Media players |
 | `media_stop` | `idle` | Media players |
+| `lock` | `locked` | Smart locks |
+| `unlock` | `unlocked` | Smart locks |
 
 ## Advanced Features
 
@@ -188,10 +191,24 @@ MIT License - see [LICENSE](LICENSE) file.
 ## Like this integration?
 
 If Optimistic Feedback makes your Home Assistant experience better, consider:
-- **Starring** this repository  
-- **Reporting issues** to help improve it
-- **Suggesting features** for future versions
-- **Sharing** with other HA users
+- **⭐ Starring** this repository  
+- **🐛 Reporting issues** to help improve it
+- **💡 Suggesting features** for future versions
+- **📢 Sharing** with other HA users
+
+## Support Development
+
+If you find this integration useful and want to support its continued development:
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/nitaybz)
+
+**Other ways to support:**
+- 🅿️ [Patreon](https://patreon.com/nitaybz)
+- 💳 [PayPal](https://paypal.me/nitaybz)
+- ⭐ Star this repository
+- 🗣️ Share with the community
+
+Your support helps maintain this project and develop new features! 🚀
 
 ---
 

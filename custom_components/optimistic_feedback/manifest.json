@@ -8,5 +8,5 @@
   "issue_tracker": "https://github.com/nitaybz/optimistic_feedback/issues",
   "loggers": ["custom_components.optimistic_feedback"],
   "requirements": [],
-  "version": "1.0.1"
+  "version": "1.1.0"
 }

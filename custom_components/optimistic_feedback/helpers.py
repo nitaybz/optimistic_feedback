@@ -187,9 +187,11 @@ def resolve_toggle_state(
         new_state = "closed" if current_state in ["open", "opening"] else "open"
     elif domain == "media_player":
         new_state = "paused" if current_state == "playing" else "playing"
+    elif domain == "lock":
+        new_state = "unlocked" if current_state == "locked" else "locked"
     else:
         # Generic toggle
-        new_state = "off" if current_state in ["on", "open", "playing"] else "on"
+        new_state = "off" if current_state in ["on", "open", "playing", "locked"] else "on"
     
     _LOGGER.debug("Toggle resolved: %s -> %s", current_state, new_state)
     return new_state
