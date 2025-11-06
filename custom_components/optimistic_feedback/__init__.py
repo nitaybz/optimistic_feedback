@@ -33,6 +33,7 @@ from .const import (
 from .helpers import (
     derive_state, 
     resolve_toggle_state,
+    resolve_climate_set_temperature_state,
     should_apply_optimistic_update,
     record_optimistic_state,
     clear_optimistic_state,
@@ -132,11 +133,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                         _LOGGER.debug("Entity %s in exclude list, skipping", ent_id)
                         continue
 
-                # Handle toggle services specially
+                # Handle services that require current state analysis
                 if needs_current_state:
-                    final_state = resolve_toggle_state(hass, ent_id, data["domain"])
+                    if data["domain"] == "climate" and data["service"] == "set_temperature":
+                        # Special handling for climate set_temperature
+                        final_state = resolve_climate_set_temperature_state(hass, ent_id, data.get("service_data", {}))
+                    else:
+                        # Regular toggle logic
+                        final_state = resolve_toggle_state(hass, ent_id, data["domain"])
+                    
                     if final_state is None:
-                        _LOGGER.debug("Could not resolve toggle state for %s", ent_id)
+                        _LOGGER.debug("Could not resolve state for %s", ent_id)
                         continue
                 else:
                     final_state = optimistic_state

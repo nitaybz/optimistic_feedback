@@ -157,6 +157,74 @@ def derive_state(
     _LOGGER.debug("Unknown service %s for domain %s", service, domain)
     return None, False
 
+def resolve_climate_set_temperature_state(
+    hass: HomeAssistant,
+    entity_id: str,
+    service_data: dict
+) -> str | None:
+    """
+    Resolve climate state for set_temperature service by comparing target vs current temperature.
+    """
+    target_temp = service_data.get("temperature")
+    if target_temp is None:
+        return "auto"  # No temperature specified, default to auto
+    
+    # Get current temperature and device capabilities from the entity's attributes
+    state_obj = hass.states.get(entity_id)
+    if not state_obj:
+        return "auto"  # Can't determine, default to auto
+    
+    current_temp = state_obj.attributes.get("current_temperature")
+    hvac_modes = state_obj.attributes.get("hvac_modes", [])
+    
+    if current_temp is None:
+        # No current temperature, but we can still make educated guesses
+        # Check if the device supports cooling
+        if "cool" in hvac_modes and "heat" in hvac_modes:
+            return "auto"  # Heat pump or full AC - use auto
+        elif "cool" in hvac_modes:
+            return "cool"  # AC only
+        elif "heat" in hvac_modes:
+            return "heat"  # Heater only
+        else:
+            return "auto"  # Fallback
+    
+    # Compare target vs current to determine likely mode
+    try:
+        target = float(target_temp)
+        current = float(current_temp)
+        
+        temp_diff = target - current
+        
+        # Use a small threshold to avoid switching modes for tiny differences
+        if abs(temp_diff) <= 0.5:
+            # Temperature is close enough, use auto or keep current mode if already on
+            current_hvac_mode = state_obj.state
+            if current_hvac_mode in ["heat", "cool", "auto", "heat_cool"]:
+                return current_hvac_mode  # Keep current mode if it's active
+            else:
+                return "auto"  # Default to auto
+        elif temp_diff > 0:
+            # Need to increase temperature
+            if "heat" in hvac_modes:
+                return "heat"
+            elif "auto" in hvac_modes:
+                return "auto"
+            else:
+                return "heat"  # Fallback even if not in supported modes
+        else:
+            # Need to decrease temperature
+            if "cool" in hvac_modes:
+                return "cool"
+            elif "auto" in hvac_modes:
+                return "auto"
+            else:
+                return "cool"  # Fallback even if not in supported modes
+                
+    except (ValueError, TypeError):
+        return "auto"  # Couldn't parse temperatures, default to auto
+
+
 def resolve_toggle_state(
     hass: HomeAssistant,
     entity_id: str,
@@ -184,11 +252,20 @@ def resolve_toggle_state(
     if domain in ["light", "switch", "fan"]:
         new_state = "off" if current_state == "on" else "on"
     elif domain == "cover":
+
         new_state = "closed" if current_state in ["open", "opening"] else "open"
     elif domain == "media_player":
         new_state = "paused" if current_state == "playing" else "playing"
     elif domain == "lock":
         new_state = "unlocked" if current_state == "locked" else "locked"
+    elif domain == "climate":
+        # Climate toggle: if off, turn to most appropriate mode, if on, turn off
+        if current_state == "off":
+            # When turning on, choose mode based on context (season/temperature)
+            # For now, use auto as the safest default that works for heating and cooling
+            new_state = "auto"
+        else:
+            new_state = "off"
     else:
         # Generic toggle
         new_state = "off" if current_state in ["on", "open", "playing", "locked"] else "on"
@@ -219,9 +296,53 @@ def _derive_climate_state(service: str, service_data: dict) -> Tuple[str | None,
     if service == "set_hvac_mode":
         return service_data.get("hvac_mode"), False
     elif service == "turn_on":
-        return "heat", False  # Common default
+        # When turning on a climate device, use auto as default for maximum compatibility
+        # This works for both heating and cooling scenarios
+        return "auto", False
     elif service == "turn_off":
         return "off", False
+    elif service == "set_temperature":
+        # If hvac_mode is specified in the service data, use it
+        if "hvac_mode" in service_data:
+            return service_data.get("hvac_mode"), False
+        # If no hvac_mode but temperature is set, we need to determine the likely mode
+        # This is tricky without knowing current temp, but we can make educated guesses
+        return None, True  # Requires current state to determine if heating/cooling
+    elif service == "set_preset_mode":
+        # Preset modes typically don't change the main hvac_mode state
+        # but some presets might (like "away" mode turning off)
+        preset = service_data.get("preset_mode", "").lower()
+        if preset in ["away", "vacation"]:
+            # These presets often turn the system off or to eco mode
+            return "off", False
+        elif preset in ["eco", "sleep"]:
+            # Eco modes typically use auto
+            return "auto", False
+        # For other presets, don't change the hvac_mode
+        return None, False
+    elif service == "set_aux_heat":
+        # Auxiliary heat typically means heating mode
+        aux_heat = service_data.get("aux_heat", False)
+        if aux_heat:
+            return "heat", False
+        return None, False
+    elif service == "toggle":
+        # Climate toggle needs current state
+        return None, True
+    elif service == "set_fan_mode":
+        # Setting fan mode usually keeps the current hvac_mode
+        # Only change if switching to "auto" fan might indicate auto mode
+        fan_mode = service_data.get("fan_mode", "").lower()
+        if fan_mode == "auto":
+            return "auto", False
+        return None, False
+    elif service == "set_swing_mode":
+        # Swing mode changes don't affect hvac_mode
+        return None, False
+    elif service == "set_humidity":
+        # Setting humidity might indicate dry mode for some devices
+        # But typically doesn't change hvac_mode
+        return None, False
     return None, False
 
 
