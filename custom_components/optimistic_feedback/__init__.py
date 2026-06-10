@@ -133,6 +133,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                         _LOGGER.debug("Entity %s in exclude list, skipping", ent_id)
                         continue
 
+                # OFFLINE GUARD (v1.2.2, 2026-06-10): never echo an optimistic
+                # state over an entity that is currently unavailable/unknown.
+                # Echoing e.g. "on" onto an offline device HIDES the failure — the
+                # state would read back the optimistic target indefinitely, so the
+                # UI (and any consumer checking state) believes a command that
+                # never reached the device succeeded. Leaving the real
+                # `unavailable` state in place lets the failure surface honestly.
+                existing_state = hass.states.get(ent_id)
+                if existing_state is None or existing_state.state in ("unavailable", "unknown"):
+                    _LOGGER.debug(
+                        "Skipping optimistic echo for %s — current state is %s (treated as offline)",
+                        ent_id, existing_state.state if existing_state else "missing",
+                    )
+                    continue
+
                 # Handle services that require current state analysis
                 if needs_current_state:
                     if data["domain"] == "climate" and data["service"] == "set_temperature":
