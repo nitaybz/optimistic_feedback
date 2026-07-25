@@ -4,10 +4,15 @@ CONF_EXCLUDE = "exclude_entities"
 CONF_INCLUDE_MODE = "include_mode"
 CONF_SELECTED_ENTITIES = "selected_entities"
 CONF_DEBOUNCE_TIME = "debounce_time"
+CONF_REVERT_TIMEOUT = "revert_timeout"
 
 DEFAULT_DOMAINS = ["light", "switch"]
 ALL_SUPPORTED_DOMAINS = ["light", "switch", "cover", "fan", "climate", "media_player", "lock"]
 DEFAULT_DEBOUNCE_MS = 400
+# Seconds to wait for the device to confirm an optimistic state before putting
+# the previous state back. 0 disables reverting and keeps the pre-1.3.0
+# behaviour of leaving the optimistic state in place indefinitely.
+DEFAULT_REVERT_TIMEOUT_S = 5
 EVENT_CALL_SERVICE = "call_service"
 
 # Maps service name → optimistic state string

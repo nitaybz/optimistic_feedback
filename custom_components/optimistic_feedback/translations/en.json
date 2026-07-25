@@ -8,12 +8,14 @@
           "domains": "Entity domains to include",
           "include_mode": "Entity filtering mode",
           "selected_entities": "Select entities",
-          "debounce_time": "Debounce time (prevents rapid duplicate updates)"
+          "debounce_time": "Debounce time (prevents rapid duplicate updates)",
+          "revert_timeout": "Revert timeout"
         },
         "data_description": {
           "include_mode": "ON = Only selected entities get optimistic feedback\nOFF = All domain entities except selected ones get optimistic feedback",
           "selected_entities": "Choose specific entities to include or exclude based on the mode above",
-          "debounce_time": "Minimum time between optimistic updates for the same entity (50-2000ms)"
+          "debounce_time": "Minimum time between optimistic updates for the same entity (50-2000ms)",
+          "revert_timeout": "Seconds to wait for the device to confirm before restoring the previous state. 0 disables reverting."
         }
       }
     },
@@ -30,12 +32,14 @@
           "domains": "Entity domains to include",
           "include_mode": "Entity filtering mode",
           "selected_entities": "Entities to {mode_action}",
-          "debounce_time": "Debounce time"
+          "debounce_time": "Debounce time",
+          "revert_timeout": "Revert timeout"
         },
         "data_description": {
           "include_mode": "ON = Include mode (only selected entities)\nOFF = Exclude mode (all except selected entities)",
           "selected_entities": "Choose entities to {mode_action} for optimistic feedback",
-          "debounce_time": "Minimum time between updates for the same entity (50-2000ms)"
+          "debounce_time": "Minimum time between updates for the same entity (50-2000ms)",
+          "revert_timeout": "Seconds to wait for the device to confirm before restoring the previous state. 0 disables reverting."
         }
       }
     }

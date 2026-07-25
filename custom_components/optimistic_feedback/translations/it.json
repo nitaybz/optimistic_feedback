@@ -8,7 +8,8 @@
           "domains": "Domini di entità da includere",
           "include_mode": "Modalità di inclusione (ON = solo entità selezionate, OFF = escludi entità selezionate)",
           "selected_entities": "Seleziona entità specifiche",
-          "debounce_time": "Tempo di debounce (in millisecondi)"
+          "debounce_time": "Tempo di debounce (in millisecondi)",
+          "revert_timeout": "Timeout di ripristino"
         }
       }
     },
@@ -25,7 +26,8 @@
           "domains": "Domini di entità da includere",
           "include_mode": "Modalità di inclusione (ON = solo entità selezionate, OFF = escludi entità selezionate)",
           "selected_entities": "Seleziona entità specifiche",
-          "debounce_time": "Tempo di debounce (in millisecondi)"
+          "debounce_time": "Tempo di debounce (in millisecondi)",
+          "revert_timeout": "Timeout di ripristino"
         }
       }
     }

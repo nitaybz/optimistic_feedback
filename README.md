@@ -32,6 +32,8 @@ Home Assistant waits for devices to confirm state changes before updating the UI
 - **Smart toggle prediction** - knows current state and predicts correctly
 - **Include/Exclude modes** - fine-tune which entities get optimistic feedback
 - **Configurable debounce** - prevent UI flicker from rapid commands
+- **Automatic revert** - if the device never confirms within the revert timeout, the previous state is restored instead of leaving a prediction that never came true
+- **Offline guard** - unavailable/unknown entities are never given an optimistic state, so a command that cannot reach the device does not look like it succeeded
 - **7 languages supported** - English, Hebrew, Spanish, French, German, Italian, Portuguese
 - **Self-healing** - automatically corrects if device command fails
 - **Modern UI** - intuitive configuration with dynamic help text
@@ -145,7 +147,6 @@ Full UI translation support for:
 
 ## Limitations
 
-- **Device failures:** If a device never responds, UI stays in optimistic state (same issue as before, just earlier)
 - **Complex attributes:** Only state prediction, not attribute prediction (brightness, color, etc.)
 - **Network commands:** Works best with local devices; cloud devices may have more latency
 

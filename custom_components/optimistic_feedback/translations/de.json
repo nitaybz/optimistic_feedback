@@ -8,7 +8,8 @@
           "domains": "Zu einschließende Entitäts-Domänen",
           "include_mode": "Einschlussmodus (EIN = nur ausgewählte Entitäten, AUS = ausgewählte Entitäten ausschließen)",
           "selected_entities": "Spezifische Entitäten auswählen",
-          "debounce_time": "Entprellzeit (in Millisekunden)"
+          "debounce_time": "Entprellzeit (in Millisekunden)",
+          "revert_timeout": "Zeitlimit für Rücksetzung"
         }
       }
     },
@@ -25,7 +26,8 @@
           "domains": "Zu einschließende Entitäts-Domänen",
           "include_mode": "Einschlussmodus (EIN = nur ausgewählte Entitäten, AUS = ausgewählte Entitäten ausschließen)",
           "selected_entities": "Spezifische Entitäten auswählen",
-          "debounce_time": "Entprellzeit (in Millisekunden)"
+          "debounce_time": "Entprellzeit (in Millisekunden)",
+          "revert_timeout": "Zeitlimit für Rücksetzung"
         }
       }
     }

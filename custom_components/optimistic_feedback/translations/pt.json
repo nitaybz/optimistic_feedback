@@ -8,7 +8,8 @@
           "domains": "Domínios de entidades para incluir",
           "include_mode": "Modo de inclusão (LIGADO = apenas entidades selecionadas, DESLIGADO = excluir entidades selecionadas)",
           "selected_entities": "Selecionar entidades específicas",
-          "debounce_time": "Tempo de debounce (em milissegundos)"
+          "debounce_time": "Tempo de debounce (em milissegundos)",
+          "revert_timeout": "Tempo limite de reversão"
         }
       }
     },
@@ -25,7 +26,8 @@
           "domains": "Domínios de entidades para incluir",
           "include_mode": "Modo de inclusão (LIGADO = apenas entidades selecionadas, DESLIGADO = excluir entidades selecionadas)",
           "selected_entities": "Selecionar entidades específicas",
-          "debounce_time": "Tempo de debounce (em milissegundos)"
+          "debounce_time": "Tempo de debounce (em milissegundos)",
+          "revert_timeout": "Tempo limite de reversão"
         }
       }
     }

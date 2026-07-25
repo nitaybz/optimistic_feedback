@@ -23,9 +23,11 @@ from .const import (
     CONF_INCLUDE_MODE,
     CONF_SELECTED_ENTITIES,
     CONF_DEBOUNCE_TIME,
+    CONF_REVERT_TIMEOUT,
     DEFAULT_DOMAINS, 
     ALL_SUPPORTED_DOMAINS,
     DEFAULT_DEBOUNCE_MS,
+    DEFAULT_REVERT_TIMEOUT_S,
     DOMAIN
 )
 
@@ -51,6 +53,7 @@ class OptimisticConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     CONF_INCLUDE_MODE: user_input.get(CONF_INCLUDE_MODE, False),
                     CONF_SELECTED_ENTITIES: user_input.get(CONF_SELECTED_ENTITIES, []),
                     CONF_DEBOUNCE_TIME: user_input.get(CONF_DEBOUNCE_TIME, DEFAULT_DEBOUNCE_MS),
+                    CONF_REVERT_TIMEOUT: user_input.get(CONF_REVERT_TIMEOUT, DEFAULT_REVERT_TIMEOUT_S),
                 }
             )
 
@@ -76,6 +79,15 @@ class OptimisticConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         max=2000,
                         step=50,
                         unit_of_measurement="ms",
+                        mode=NumberSelectorMode.BOX,
+                    )
+                ),
+                vol.Optional(CONF_REVERT_TIMEOUT, default=DEFAULT_REVERT_TIMEOUT_S): NumberSelector(
+                    NumberSelectorConfig(
+                        min=0,
+                        max=60,
+                        step=1,
+                        unit_of_measurement="s",
                         mode=NumberSelectorMode.BOX,
                     )
                 ),
@@ -110,6 +122,7 @@ class OptimisticOptionsFlow(config_entries.OptionsFlow):
         current_include_mode = self.config_entry.options.get(CONF_INCLUDE_MODE, False)
         current_selected_entities = self.config_entry.options.get(CONF_SELECTED_ENTITIES, [])
         current_debounce_time = self.config_entry.options.get(CONF_DEBOUNCE_TIME, DEFAULT_DEBOUNCE_MS)
+        current_revert_timeout = self.config_entry.options.get(CONF_REVERT_TIMEOUT, DEFAULT_REVERT_TIMEOUT_S)
 
         if user_input is not None:
             # Check if include mode changed and we need to refresh the form
@@ -120,16 +133,17 @@ class OptimisticOptionsFlow(config_entries.OptionsFlow):
                     user_input.get(CONF_INCLUDE_MODE, False),
                     user_input.get(CONF_SELECTED_ENTITIES, []),
                     user_input.get(CONF_DEBOUNCE_TIME, current_debounce_time),
+                    user_input.get(CONF_REVERT_TIMEOUT, current_revert_timeout),
                     errors
                 )
             
             return self.async_create_entry(title="", data=user_input)
 
         return await self._show_options_form(
-            current_domains, current_include_mode, current_selected_entities, current_debounce_time, errors
+            current_domains, current_include_mode, current_selected_entities, current_debounce_time, current_revert_timeout, errors
         )
 
-    async def _show_options_form(self, domains, include_mode, selected_entities, debounce_time, errors):
+    async def _show_options_form(self, domains, include_mode, selected_entities, debounce_time, revert_timeout, errors):
         """Show the options form with dynamic labels based on include/exclude mode."""
         
         # Create entity selector filtered by selected domains
@@ -165,6 +179,15 @@ class OptimisticOptionsFlow(config_entries.OptionsFlow):
                         max=2000,
                         step=50,
                         unit_of_measurement="ms",
+                        mode=NumberSelectorMode.BOX,
+                    )
+                ),
+                vol.Optional(CONF_REVERT_TIMEOUT, default=revert_timeout): NumberSelector(
+                    NumberSelectorConfig(
+                        min=0,
+                        max=60,
+                        step=1,
+                        unit_of_measurement="s",
                         mode=NumberSelectorMode.BOX,
                     )
                 ),

@@ -20,6 +20,13 @@ class OptimisticState:
     timestamp: datetime
     service_call_id: str  # Track which service call created this
     real_state_received: bool = False
+    # Context id of the state write we made ourselves. Used to tell our own
+    # optimistic echo apart from a genuine update coming from the device.
+    context_id: Optional[str] = None
+    # The state/attributes that were in place before the optimistic echo, so
+    # they can be restored if the device never confirms.
+    previous_state: Optional[str] = None
+    previous_attributes: Optional[dict] = None
 
 # ---------------------------------------------------------------------------
 # Enhanced state tracking
@@ -78,16 +85,30 @@ def should_apply_optimistic_update(
 def record_optimistic_state(
     entity_id: str, 
     state: str, 
-    service_call_id: str
+    service_call_id: str,
+    context_id: Optional[str] = None,
+    previous_state: Optional[str] = None,
+    previous_attributes: Optional[dict] = None,
 ) -> None:
     """Record that we've applied an optimistic state."""
     _OPTIMISTIC_STATES[entity_id] = OptimisticState(
         state=state,
         timestamp=datetime.utcnow(),
         service_call_id=service_call_id,
-        real_state_received=False
+        real_state_received=False,
+        context_id=context_id,
+        previous_state=previous_state,
+        previous_attributes=previous_attributes,
     )
     _LOGGER.debug("Recorded optimistic state %s=%s", entity_id, state)
+
+def get_optimistic_state(entity_id: str) -> Optional[OptimisticState]:
+    """Return the tracked optimistic state for an entity, if any."""
+    return _OPTIMISTIC_STATES.get(entity_id)
+
+def discard_optimistic_state(entity_id: str) -> None:
+    """Forget an entity's optimistic state entirely."""
+    _OPTIMISTIC_STATES.pop(entity_id, None)
 
 def clear_optimistic_state(entity_id: str) -> None:
     """Clear optimistic state when real state is received."""

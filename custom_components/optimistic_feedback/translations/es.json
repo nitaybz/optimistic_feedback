@@ -8,7 +8,8 @@
           "domains": "Dominios de entidades a incluir",
           "include_mode": "Modo de inclusión (ON = solo entidades seleccionadas, OFF = excluir entidades seleccionadas)",
           "selected_entities": "Seleccionar entidades específicas",
-          "debounce_time": "Tiempo de supresión de rebote (en milisegundos)"
+          "debounce_time": "Tiempo de supresión de rebote (en milisegundos)",
+          "revert_timeout": "Tiempo de espera de reversión"
         }
       }
     },
@@ -25,7 +26,8 @@
           "domains": "Dominios de entidades a incluir",
           "include_mode": "Modo de inclusión (ON = solo entidades seleccionadas, OFF = excluir entidades seleccionadas)",
           "selected_entities": "Seleccionar entidades específicas",
-          "debounce_time": "Tiempo de supresión de rebote (en milisegundos)"
+          "debounce_time": "Tiempo de supresión de rebote (en milisegundos)",
+          "revert_timeout": "Tiempo de espera de reversión"
         }
       }
     }
