@@ -15,6 +15,11 @@ import voluptuous as vol
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ENTITY_ID
+
+try:  # HA >= 2024.4 fires this when a state write leaves the state unchanged
+    from homeassistant.const import EVENT_STATE_REPORTED
+except ImportError:  # pragma: no cover - older cores
+    EVENT_STATE_REPORTED = None
 from homeassistant.core import Context, Event, HomeAssistant, callback
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.event import async_call_later, async_track_time_interval
@@ -299,9 +304,40 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         """Periodically clean up old optimistic states."""
         cleanup_old_optimistic_states()
 
+    # -----------------------------------------------------------------------
+    # Same-state re-writes are confirmations too (v1.3.1)
+    # -----------------------------------------------------------------------
+    # Many integrations confirm a command by writing the state they now hold,
+    # which is exactly the state we already echoed (ZHA switches, non-dimmable
+    # lights, anything whose attributes do not change).  Home Assistant turns
+    # such a write into a `state_reported` event, not `state_changed`, so
+    # listening to `state_changed` alone never sees the confirmation and the
+    # revert fires against a device that did execute the command.  Our own
+    # echo and revert writes use force_update=True and therefore always raise
+    # `state_changed`, so anything arriving here comes from the integration.
+    @callback
+    def _tracked_entity_filter(event_data: dict[str, Any]) -> bool:
+        return get_optimistic_state(event_data.get("entity_id", "")) is not None
+
+    @callback
+    def _on_state_reported(event: Event) -> None:
+        """Mark the prediction confirmed when the integration re-writes it."""
+        try:
+            clear_optimistic_state(event.data["entity_id"])
+        except Exception as e:
+            _LOGGER.error("Error in state reported handler: %s", e, exc_info=True)
+
     # Register listeners and cleanup
     remove_service_listener = hass.bus.async_listen(EVENT_CALL_SERVICE, _optimistic_echo)
     remove_state_listener = hass.bus.async_listen("state_changed", _on_state_changed)
+    if EVENT_STATE_REPORTED is not None:
+        entry.async_on_unload(
+            hass.bus.async_listen(
+                EVENT_STATE_REPORTED,
+                _on_state_reported,
+                event_filter=_tracked_entity_filter,
+            )
+        )
     
     # Schedule periodic cleanup every 30 seconds
     cleanup_cancel = async_track_time_interval(

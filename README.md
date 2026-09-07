@@ -4,7 +4,7 @@
 
 > No more waiting for slow devices – get **instant visual feedback** the moment you tap any control, with automatic self-correction if the command fails.
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/nitaybz/optimistic_feedback)
+[![Version](https://img.shields.io/badge/version-1.3.1-blue.svg)](https://github.com/nitaybz/optimistic_feedback)
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
